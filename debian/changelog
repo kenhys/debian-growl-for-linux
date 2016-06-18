@@ -1,0 +1,53 @@
+growl-for-linux (0.8.5-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/patches/series
+    - Removed drop-removed-growl4linuxjpg.patch because it was already
+      applied in upstream.
+  * debian/patches/disable-pie-for-libgolplug.patch
+    - Added a patch to disable PIE explicitly for libgolplug not to be
+      conflicted with shared libraries under display/*.
+  * debian/watch,debian/upstream/signing-key.asc
+    - Supported cryptographic signature verification.
+
+ -- Kentaro Hayashi <hayashi@clear-code.com>  Sun, 19 Jun 2016 01:46:18 +0900
+
+growl-for-linux (0.8.4-1) unstable; urgency=medium
+
+  * Initial upload to Debian (Closes: #816514)
+  * debian/changelog
+    - Removed past release changelog entries which are originally
+      maintained by Yasuhiro Matsumoto who is upstream author of
+      growl-for-linux. Those entries are just maintained to provide
+      packages on Launchpad PPA.
+  * debian/control
+    - Removed hardcoded dependency to libraries in Depends: field.
+    - Bumped compat version to 10.
+    - Upgraded to standards-version 3.9.8
+    - Added missing TLS dependency
+    - Updated package description about growl-for-linux
+  * debian/copyright
+    - Updated to machine-readable debian/copyright
+  * debian/rules
+    - Fixed non-empty-dependency_libs-in-la-file lintian warning
+    - Added hardening flags
+    - Dropped deprecated libtweets subscriber
+    - Removed auto generated header description
+  * debian/watch
+    - Added watch file
+  * debian/patches/disable-display-execstack.patch
+    - Fixed executable stack lintian warnings for display plugins
+  * debian/patches/drop-removed-growl4linuxjpg.patch
+    - Fixed not to refer already removed image.
+  * debian/patches/enable-pie-for-gol.patch
+    - Enabled PIE for gol explicitly. This patch is required because
+      hardening=-pie is used to build libgolplug correctly.
+  * debian/source.lintian-overrides
+    - Overrode false positive lintian warnings because compat 10 feature
+      is required to build
+  * debian/growl-for-linux.lintian-overrides
+    - Overrode a harmless lintian warning about meaningless ldconfig trigger
+  * debian/upstream/metadata
+    - Added metadata file
+
+ -- Kentaro Hayashi <hayashi@clear-code.com>  Sun, 12 Jun 2016 22:19:17 +0900

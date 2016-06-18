@@ -1,0 +1,14 @@
+Author: Kentaro Hayashi <hayashi@clear-code.com>
+Description: Disable PIE explicitly because it conflicts with shared libraries under display/* when hardening=+all is enabled.
+Forwarded: no
+--- a/plugins/Makefile.am
++++ b/plugins/Makefile.am
+@@ -1,6 +1,7 @@
+ noinst_LIBRARIES = libgolplug.a
+ libgolplug_a_SOURCES = memfile.c memfile.h from_url.c from_url.h
+-libgolplug_a_CFLAGS = $(GTK2_CFLAGS) $(LIBCURL_CFLAGS) -fPIC -I$(srcdir)/..
++libgolplug_a_CFLAGS = $(GTK2_CFLAGS) $(LIBCURL_CFLAGS) -fno-pie -fPIC -I$(srcdir)/..
+ #libgolplug_a_LIBADD = $(GTK2_LIBS) $(LIBCURL_LIBS)
++libgolplug_a_LDFLAGS = -no-pie
+ 
+ EXTRA_DIST = Makefile.w32

@@ -1,0 +1,3 @@
+disable-display-execstack.patch
+enable-pie-for-gol.patch
+disable-pie-for-libgolplug.patch
