@@ -7,6 +7,8 @@ growl-for-linux (0.8.5-2) unstable; urgency=medium
     - Fix insecure protocol for the URI.
   * debian/compat
     - Bump compatibility level to 11.
+  * debian/source.lintian-overrides
+    - Remove needless overrides package-uses-deprecated-source-override-location
 
  -- Kentaro Hayashi <hayashi@clear-code.com>  Thu, 22 Feb 2018 00:32:31 +0900
 
