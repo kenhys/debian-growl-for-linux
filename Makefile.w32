@@ -1,0 +1,30 @@
+PACKAGE_VERSION=$(shell cat VERSION)
+CFLAGS=-g -Wall -std=gnu99 -DPACKAGE_VERSION=\"$(PACKAGE_VERSION)\" `pkg-config --cflags gtk+-2.0`
+LDFLAGS=`pkg-config --libs gtk+-2.0 gmodule-2.0` -lshell32 -lsqlite3 -lcrypto -lws2_32
+
+all : gol.exe displays
+
+displays:
+	cd plugins && ${MAKE} -f Makefile.w32
+	cd display/fog && ${MAKE} -f Makefile.w32 && cp libfog.dll ..
+	cd display/balloon && ${MAKE} -f Makefile.w32 && cp libballoon.dll ..
+	cd display/nico2 && ${MAKE} -f Makefile.w32 && cp libnico2.dll ..
+
+console : gol.o
+	gcc -o gol.exe -mconsole gol.o $(LDFLAGS)
+
+gol.exe : gol.o gol.res
+	gcc -g -o gol.exe gol.o $(LDFLAGS) gol.res
+
+gol.o : gol.c gol.h
+	gcc -c $(CFLAGS) -o gol.o gol.c
+
+gol.res : gol.rc
+	windres -O coff gol.rc gol.res
+
+clean:
+	-rm *.o *.res *.exe
+	-cd plugins && ${MAKE} -f Makefile.w32 clean
+	-cd display/fog && ${MAKE} -f Makefile.w32 clean
+	-cd display/balloon && ${MAKE} -f Makefile.w32 clean
+	-cd display/nico2 && ${MAKE} -f Makefile.w32 clean

@@ -1,0 +1,11 @@
+* GUI for configuration.
+
+* Stylish display, customizable.
+  add support of gmodule
+
+* More imitation of Growl For Windows.
+
+* Added application to the list while displaying setting dialog.
+
+* Performance optimization.
+** DISPLAY_* functions in fog.c and balloon.c.

@@ -1,0 +1,14 @@
+PACKAGE_VERSION=$(shell cat VERSION)
+CFLAGS=-g -Wall -std=gnu99 -DPACKAGE_VERSION=\"$(PACKAGE_VERSION)\" `pkg-config --cflags gtk+-2.0` -I../..
+LDFLAGS=-L../../plugins -lgolplug `pkg-config --libs gtk+-2.0 gmodule-2.0` -lshell32 -lsqlite3 -lcrypto -lws2_32 -lcurl
+
+all : libfog.dll
+
+libfog.dll : fog.o
+	gcc -shared -g -o libfog.dll fog.o $(LDFLAGS)
+
+fog.o : fog.c display_fog.xpm
+	gcc -g -Wall -c $(CFLAGS) -o fog.o fog.c
+
+clean:
+	-rm *.o *.res *.exe *.dll

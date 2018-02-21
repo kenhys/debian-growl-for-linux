@@ -1,0 +1,14 @@
+PACKAGE_VERSION=$(shell cat ../../VERSION)
+CFLAGS=-g -Wall -std=gnu99 -DPACKAGE_VERSION=\"$(PACKAGE_VERSION)\" `pkg-config --cflags gtk+-2.0` -I../..
+LDFLAGS=-L../../plugins -lgolplug `pkg-config --libs gtk+-2.0 gmodule-2.0` -lshell32 -lsqlite3 -lcrypto -lws2_32 -lcurl
+
+all : libnico2.dll
+
+libnico2.dll : nico2.o
+	gcc -shared -g -o libnico2.dll nico2.o $(LDFLAGS)
+
+nico2.o : nico2.c display_nico2.xpm
+	gcc -g -Wall -c $(CFLAGS) -o nico2.o nico2.c
+
+clean:
+	-rm *.o *.res *.exe *.dll
